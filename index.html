@@ -1,11 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assessment 2</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
+
 <body>
-    
+    <script>
+        $(document).ready(function () {
+            // Mengambil dan menampilkan data berita
+            $.ajax({
+                url: "get_berita.php",
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    // Mengosongkan tbody sebelum menambahkan data baru
+                    $("#tabel-berita tbody").empty();
+
+                    for (var i = 0; i < data.length; i++) {
+                        var id = data[i].id;
+                        var judul = data[i].judul;
+                        var penulis = data[i].penulis;
+                        var terbit = data[i].terbit;
+                        var newRow = $('<tr id= "row-' + id + '">');
+                        newRow.append("<td>" + penulis + "</td>");
+                        newRow.append("<td>" + terbit + "</td>");
+                        newRow.append("<td>" + judul + "</td>");
+                        newRow.append(
+                            '<td><button onclick="hapusBerita(' +
+                            id +
+                            ')">Hapus</button></td>'
+                        );
+                        $("#tabel-berita tbody").append(newRow);
+                    }
+
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error("Error:", textStatus, errorThrown);
+                },
+            });
+        });
+
+    </script>
+
+    <!-- Tabel berita -->
+    <table id="tabel-berita">
+        <thead>
+            <tr>
+                <th>Penulis</th>
+                <th>Terbit</th>
+                <th>Judul</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>
 </body>
+
 </html>
