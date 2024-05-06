@@ -17,7 +17,6 @@ if(isset($_GET['id'])){
     $id = $_GET['id'];
     $sql = "DELETE FROM berita WHERE id=$id";
 
-
     if ($conn->query($sql) === TRUE) {
         $response = array('success' => true);
         echo json_encode($response);
