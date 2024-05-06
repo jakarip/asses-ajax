@@ -63,6 +63,28 @@
             });
         });
 
+        function hapusBerita(id) {
+            $.ajax({
+                url: "hapus_berita.php?id=" + id,
+                type: "GET",
+                success: function (response) {
+
+                    if (response.success) { }
+                    else {
+                        $("#row-" + id).remove();
+                        if ($("#tabel-berita tbody").children().length == 0) {
+                            $("#tabel-berita tbody").append(
+                                '<tr><td colspan="4">Tidak ada data</td></tr>'
+                            );
+                        }
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error("Error:", textStatus, errorThrown);
+                },
+            });
+        }
+
     </script>
 
     <!-- Tabel berita -->
